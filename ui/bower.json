@@ -1,0 +1,29 @@
+{
+  "name": "sca-auth",
+  "version": "0.0.1",
+  "authors": [
+    "Soichi Hayashi <hayashis@iu.edu>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "api",
+    "barn"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7",
+    "angular-animate": "~1.4.7",
+    "angular-bootstrap": "~0.13.0",
+    "angular-cookies": "~1.4.7",
+    "angular-loading-bar": "~0.7.1",
+    "angular-route": "~1.4.7",
+    "angular-ui-select": "~0.11.1",
+    "angularjs-toaster": "~0.4.14",
+    "angular-socket-io": "~0.7.0",
+    "bootstrap": "~3.3.2",
+    "fontawesome": "~4.3.0",
+    "angular-sanitize": "~1.4.7",
+    "angular-jwt": "~0.0.9"
+  }
+}

@@ -1,0 +1,11 @@
+<sca-menubar menu="menu.top" active="'websh'" profile="menu._profile" user="menu.user"></sca-menubar>
+<div class="header">
+    <h2>WebSh Session</h2>
+</div>
+<div class="container-fluid">
+    <ul>
+        <li ng-repeat="session in sessions"><a href="#/session/{{session.id}}" target="_blank">{{session.title}}</a></li>
+    </ul>
+    <button class="btn btn-default" ng-click="start()">Open new terminal</button>
+</div>
+

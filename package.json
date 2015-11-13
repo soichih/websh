@@ -1,0 +1,25 @@
+{
+  "name": "websh",
+  "version": "0.0.0",
+  "description": "",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "BSD",
+  "dependencies": {
+    "express": "~4.13.3",
+    "express-jwt": "~3.0.1",
+    "express-validator": "~2.14.2",
+    "express-winston": "~0.3.1",
+    "morgan": "~1.6.1",
+    "sequelize": "~3.5.1",
+    "body-parser": "~1.13.3",
+    "sqlite3": "~3.0.10",
+    "winston": "~1.0.1",
+    "ansi-keycode": "0.0.0",
+    "term.js": "0.0.7",
+    "pty.js": "~0.3.0",
+    "socketio-jwt": "~4.3.1"
+  }
+}
