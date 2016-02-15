@@ -30,11 +30,17 @@
     <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
     <script src="bower_components/angular-route/angular-route.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/before-leaving-me/src/blm.js"></script>
+    <script src="bower_components/term/src/term.js"></script>
+
     <script src="/api/websh/socket.io/socket.io.js"></script>
-    <script src="js/term.js"></script>
+    <!--where did I get this from? conver to bower-->
+    <!--<script src="js/term.js"></script>-->
 
     <!-- TODO make this configurable? don't forget the shared/css/style.css -->
+    <script src="../shared/config.js"></script>
     <script src="../shared/dist/shared.js"></script>
+
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
     <script>
@@ -56,10 +62,12 @@
         //authentication service URL to jump if user needs to login
         auth_url: '/auth',
 
-        profile_api: '/api/profile',
+        //profile_api: '/api/profile',
 
         jwt_id: 'jwt'
     });
+
+    blm("Do you really want to leave?");
     </script>
 </body>
 </html>

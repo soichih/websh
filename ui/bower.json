@@ -24,6 +24,8 @@
     "bootstrap": "~3.3.2",
     "fontawesome": "~4.3.0",
     "angular-sanitize": "~1.4.7",
-    "angular-jwt": "~0.0.9"
+    "angular-jwt": "~0.0.9",
+    "before-leaving-me": "IonicaBizau/before-leaving-me.js",
+    "term": "chjj/term.js"
   }
 }

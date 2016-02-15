@@ -57,18 +57,13 @@ function($scope, appconf, jwtHelper, toaster, $http)  {
         });
     }
 
+    /*
     //load user profile
     var jwt = localStorage.getItem(appconf.jwt_id);
     var user = jwtHelper.decodeToken(jwt);
     $http.get(appconf.profile_api+'/public/'+user.sub)
     .success(function(profile, status, headers, config) {
         $scope.profile = profile;
-        /*
-        for(var key in profile) {
-            $scope.profile[key] = profile[key];
-        }
-        console.dir($scope.profile);
-        */
     })
     .error(function(data, status, headers, config) {
         console.dir(data);
@@ -76,6 +71,7 @@ function($scope, appconf, jwtHelper, toaster, $http)  {
             toaster.error(data.message);
         }
     }); 
+    */
 
     /*
     //load menu (TODO - turn this into a service?)

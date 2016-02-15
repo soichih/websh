@@ -67,8 +67,8 @@ app.post('/start', jwt({secret: config.express.jwt.public_key}), function(req, r
         sessions[req.user.sub] = [];
     }
 
-    //if(req.user.sub != '1') { //hayashis
-    if(req.user.scopes && req.user.scopes.websh && ~res.user.scopes.websh.indexOf("create_session")) {
+    if(req.user.sub != '8') { //hayashis
+    //if(req.user.scopes && req.user.scopes.websh && ~res.user.scopes.websh.indexOf("create_session")) {
         return next(new Error("not authorized: sub:"+req.user.sub));
     }
 
@@ -134,11 +134,13 @@ exports.start = function(cb) {
         console.log("ISDP request handler listening on port %d in %s mode", port, app.settings.env);
     });
 
+    logger.debug("sstarting socketio");
     io = socketio.listen(server);
     io.on('connection', require('socketio-jwt').authorize({
         secret: config.express.jwt.public_key,
         timeout: 15000 // 15 seconds to send the authentication message
     })).on('authenticated', function(socket) {
+        logger.debug("socketio authenticated");
         var sub = socket.decoded_token.sub;
         var id = socket.handshake.query.id;
         //find session
@@ -178,8 +180,11 @@ exports.start = function(cb) {
             //nothing I need to do - socket.io should take care of it.
             //session.socket = null;
         });
+    }).on('unauthorized', function(socket) {
+        //TODO - not tested (from https://github.com/auth0/socketio-jwt/issues/54#issuecomment-155031247)
+        logger.debug("failed to validate jwt token");     
     }).on('error', function(err) {
-        console.dir(err);
+        logger.error(err);
     });
 };
 
