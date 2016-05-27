@@ -67,7 +67,7 @@ app.post('/start', jwt({secret: config.express.jwt.public_key}), function(req, r
         sessions[req.user.sub] = [];
     }
 
-    if(req.user.sub != '8') { //hayashis
+    if(req.user.sub != '1') { //hayashis
     //if(req.user.scopes && req.user.scopes.websh && ~res.user.scopes.websh.indexOf("create_session")) {
         return next(new Error("not authorized: sub:"+req.user.sub));
     }
