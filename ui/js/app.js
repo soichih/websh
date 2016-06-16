@@ -3,7 +3,6 @@
 var app = angular.module('app', [
     'app.config',
     'btford.socket-io',
-    //'bgDirectives',
     'ngRoute',
     'ngAnimate',
     'ngCookies',
@@ -11,14 +10,6 @@ var app = angular.module('app', [
     'angular-jwt',
     'sca-shared',
 ]);
-
-/*
-app.factory('socket', ['appconf', 'socketFactory', function(appconf, socketFactory) {
-    return socketFactory({
-        ioSocket: io.connect(appconf.socket.base, appconf.socket.opts)
-    });
-}]);
-*/
 
 //configure route
 app.config(['$routeProvider', 'appconf', function($routeProvider, appconf) {

@@ -47,6 +47,9 @@ app.use(function(req, res, next) {
 var io = null;
 var sessions = {};
 
+//figuer out best terminal to use
+var term_name = require('fs').existsSync('/usr/share/terminfo/x/xterm-256color') ? 'xterm-256color' : 'xterm';
+
 app.get('/health', function(req, res) { res.json({status: 'running'}); });
 
 //list user's current sessions
@@ -82,15 +85,14 @@ app.post('/start', jwt({secret: config.express.jwt.public_key}), function(req, r
     sessions[req.user.sub].push(session);
 
     logger.info("forking for sub:"+req.user.sub+" session id:"+session.id);
-    session.term = pty.fork(process.env.SHELL || 'sh', [], {
-        name: require('fs').existsSync('/usr/share/terminfo/x/xterm-256color')
-        ? 'xterm-256color'
-        : 'xterm',
+    //session.term = pty.fork(process.env.SHELL || 'sh', [], {
+    session.term = pty.fork('docker', [ 'run', '-i', '-t', '--rm', 'ubuntu', '/bin/bash'], {
         /*
+        name: term_name,
         cols: 80,
         rows: 24,
         */
-        cwd: process.env.HOME
+        //cwd: process.env.HOME
     });
     session.term.on('data', function(data) {
         /*
@@ -106,6 +108,12 @@ app.post('/start', jwt({secret: config.express.jwt.public_key}), function(req, r
         var id = sessions[req.user.sub].indexOf(session);
         sessions[req.user.sub].splice(id,1);
     });
+    /* no such thing?
+    session.term.on('error', function(err) {
+        console.log("error from term");
+        console.dir(err);
+    });
+    */
 
     res.json({status: "ok"});
 });

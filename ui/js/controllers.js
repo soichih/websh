@@ -84,28 +84,19 @@ function($scope, appconf, jwtHelper, toaster, $http)  {
 
 app.controller('SessionController', ['$scope', 'appconf', 'jwtHelper', 'toaster', '$routeParams',
 function($scope, appconf, jwtHelper, toaster, $routeParams)  {
+    
+    //TODO replace all these with <websh> component
 
     var websh = document.getElementById("websh");
     var font = document.getElementById("fontcheck");
-    /*
-    Terminal.colors[256] = Terminal.defaultColors.bg = '#ffffff';
-    Terminal.colors[257] = Terminal.defaultColors.fg = '#000000';
-    */
     $(document.body).css("overflow", "hidden");
 
     appconf.socket.opts.query = {id: $routeParams.id};
+    console.log("connectint with id "+$routeParams.id);
     var socket = io.connect(appconf.socket.base, appconf.socket.opts);
     
-    /*
-    $scope.$watchGroup(['websh.clientWidth', 'websh.clientHeight'],
-    function(newvalue, oldvalue, scope) {
-        console.log("changed");
-        resize();
-    });    
-    */
-    //
-
     socket.on('connect', function() {
+        console.log("connected.. opening terminal");
         var term = new Terminal({
             cols: 200,
             rows: 20,
@@ -148,6 +139,7 @@ function($scope, appconf, jwtHelper, toaster, $routeParams)  {
         socket.on('authenticated', function() {
             //console.log("socket.io authenticated");
             socket.on('data', function(data) {
+                //console.log(data);
                 try {
                     term.write(data);
                 } catch (e) {   
