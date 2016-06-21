@@ -1,6 +1,9 @@
 <style>
-#fontcheck,
-#websh {
+.websh {
+background-color: yellow;
+}
+.websh #fontcheck,
+.websh #websh {
 line-height: 14px;
 font-family: Consolas, monaco, monospace;
 font-size: 12px;
@@ -9,20 +12,21 @@ background-color: purple;
 font-style: normal;
 }
 
-#fontcheck {
+.websh #fontcheck {
 position: absolute;
 opacity: 0;
 }
-#websh {
+.websh #websh {
 color: white;
 background-color: black;
 width: 100%;
 height: 100%;
 }
-.terminal-cursor {
+.websh .terminal-cursor {
 background-color: white;
 }
 </style>
-<span id="fontcheck"></span>
-<div id="websh"></div>
-
+<div class="websh">
+    <span id="fontcheck"></span>
+    <div id="websh"></div>
+</div>

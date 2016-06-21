@@ -5,9 +5,10 @@
         bindings: {
             id: '='
         },
-        controller: function(appconf, toaster) {
+        controller: function($scope, appconf, toaster) {
             var websh = document.getElementById("websh");
             var font = document.getElementById("fontcheck");
+
 
             //this.$onInit = function() {
             appconf.websh.opts.query = {id: this.id};
@@ -30,6 +31,11 @@
                     document.title = title;
                 });
                 term.open(websh);
+
+                //sent by parent
+                $scope.$on("websh_open", function() {
+                    resize();
+                });
 
                 function resize() {
                     //figure out cols/rows

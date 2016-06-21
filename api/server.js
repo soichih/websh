@@ -85,14 +85,14 @@ app.post('/start', jwt({secret: config.express.jwt.public_key}), function(req, r
     sessions[req.user.sub].push(session);
 
     logger.info("forking for sub:"+req.user.sub+" session id:"+session.id);
-    //session.term = pty.fork(process.env.SHELL || 'sh', [], {
-    session.term = pty.fork('docker', [ 'run', '-i', '-t', '--rm', 'ubuntu', '/bin/bash'], {
-        /*
+    session.term = pty.fork(process.env.SHELL || 'sh', [], {
+    //session.term = pty.fork('docker', [ 'run', '-i', '-t', '--rm', 'ubuntu', '/bin/bash'], {
         name: term_name,
+        cwd: process.env.HOME
+        /*
         cols: 80,
         rows: 24,
         */
-        //cwd: process.env.HOME
     });
     session.term.on('data', function(data) {
         /*

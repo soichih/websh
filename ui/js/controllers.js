@@ -114,7 +114,9 @@ function($scope, appconf, jwtHelper, toaster, $routeParams)  {
         term.open(websh);
 
         function resize() {
-            //figure out cols/rows
+            if(term.fit) return term.fit();
+
+            //figure out cols/rows hardway..
             var cols = 0;
             font.textContent = "";
             while(font.offsetWidth < websh.clientWidth) {
