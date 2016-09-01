@@ -88,7 +88,7 @@ function($scope, appconf, jwtHelper, toaster, $routeParams)  {
     //TODO replace all these with <websh> component
 
     var websh = document.getElementById("websh");
-    var font = document.getElementById("fontcheck");
+    //var font = document.getElementById("fontcheck");
     $(document.body).css("overflow", "hidden");
 
     appconf.socket.opts.query = {id: $routeParams.id};
@@ -112,10 +112,14 @@ function($scope, appconf, jwtHelper, toaster, $routeParams)  {
             document.title = title;
         });
         term.open(websh);
+        term.fit();
 
         function resize() {
-            if(term.fit) return term.fit();
+            console.log("resizing");
+            term.fit();
+            socket.emit('resize', {cols: term.cols, rows: term.rows});
 
+            /*
             //figure out cols/rows hardway..
             var cols = 0;
             font.textContent = "";
@@ -132,6 +136,7 @@ function($scope, appconf, jwtHelper, toaster, $routeParams)  {
                 term.resize(cols,rows);
                 socket.emit('resize', {cols: cols, rows: rows});
             }
+            */
         }
 
         var jwt = localStorage.getItem(appconf.jwt_id);

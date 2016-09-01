@@ -5,7 +5,7 @@ var winston = require('winston');
 var Sequelize = require('sequelize');
 
 //mine
-var config = require('./config/config');
+var config = require('./config');
 var logger = new winston.Logger(config.logger.winston);
 
 var sequelize = new Sequelize('database', 'username', 'password', config.db);

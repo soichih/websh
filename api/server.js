@@ -5,7 +5,7 @@ var http = require('http');
 
 //contrib
 var pty = require('pty.js');
-var terminal = require('term.js');
+//var terminal = require('term.js');
 var express = require('express');
 var bodyParser = require('body-parser');
 var winston = require('winston');
@@ -16,7 +16,7 @@ var jwt = require('express-jwt');
 var socketio = require('socket.io');
 
 //mine
-var config = require('./config/config');
+var config = require('./config');
 var logger = new winston.Logger(config.logger.winston);
 //var controllers = require('./controllers');
 
@@ -118,15 +118,24 @@ app.post('/start', jwt({secret: config.express.jwt.public_key}), function(req, r
     res.json({status: "ok"});
 });
 
-app.use(terminal.middleware()); //TODO - what does this do?
+//app.use(terminal.middleware()); //TODO - what does this do?
 
 //error handling
 app.use(expressWinston.errorLogger(config.logger.winston)); 
 app.use(function(err, req, res, next) {
-    logger.error(err);
-    logger.error(err.stack);
+    if(typeof err == "string") err = {message: err};
+
+    //log this error
+    logger.info(err);
+    if(err.name) switch(err.name) {
+    case "UnauthorizedError":
+        logger.info(req.headers); //dump headers for debugging purpose..
+        break;
+    }
+
+    if(err.stack) err.stack = "hidden"; //don't sent call stack to UI - for security reason
     res.status(err.status || 500);
-    res.json({message: err.message, /*stack: err.stack*/}); //let's hide callstack for now
+    res.json(err);
 });
 process.on('uncaughtException', function (err) {
     logger.error((new Date).toUTCString() + ' uncaughtException:', err.message)
@@ -174,7 +183,7 @@ exports.start = function(cb) {
 
         //session.socket = socket;
         socket.on('resize', function(data) {
-            //logger.debug(data);
+            logger.debug(data);
             session.term.resize(data.cols, data.rows);
         });
         socket.on('data', function(data) {
